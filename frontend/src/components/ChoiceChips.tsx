@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   compactChip: {
-    minHeight: 38,
+    minHeight: 44,
     paddingHorizontal: 12,
   },
   regularChip: {

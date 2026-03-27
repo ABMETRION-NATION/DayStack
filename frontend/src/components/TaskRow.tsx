@@ -1,5 +1,5 @@
 import Feather from "@expo/vector-icons/Feather";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 
 import { useAppTheme } from "../context/ThemeContext";
@@ -82,16 +82,34 @@ export function TaskRow({
 
       <View style={styles.rightSide}>
         {trailingText ? (
-          <Text numberOfLines={1} style={[styles.trailingText, { color: colors.textSecondary }]}> 
+          <Text numberOfLines={1} style={[styles.trailingText, { color: colors.textSecondary }]}>
             {trailingText}
           </Text>
         ) : null}
         <View style={[styles.categoryDot, { backgroundColor: categoryColor }]} />
       </View>
+
+      {onDelete && Platform.OS === "web" ? (
+        <Pressable
+          accessibilityLabel={`Delete ${title}`}
+          onPress={onDelete}
+          style={({ pressed }) => [
+            styles.webDeleteButton,
+            {
+              backgroundColor: colors.surface,
+              borderColor: colors.border,
+              opacity: pressed ? 0.82 : 1,
+            },
+          ]}
+          testID={`${testID}-delete`}
+        >
+          <Feather color={colors.destructive} name="trash-2" size={16} />
+        </Pressable>
+      ) : null}
     </Pressable>
   );
 
-  if (!onDelete) {
+  if (!onDelete || Platform.OS === "web") {
     return rowContent;
   }
 
@@ -158,5 +176,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     minWidth: 84,
+  },
+  webDeleteButton: {
+    alignItems: "center",
+    borderRadius: 16,
+    borderWidth: 1,
+    height: 44,
+    justifyContent: "center",
+    marginLeft: 8,
+    width: 44,
   },
 });
