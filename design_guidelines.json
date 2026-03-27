@@ -1,0 +1,151 @@
+{
+  "project_info": {
+    "name": "DayStack",
+    "type": "mobile_app_expo",
+    "theme": "Dark (Default)",
+    "archetype": "4 (Swiss & High-Contrast)",
+    "aesthetic": "Tactical Minimalism, Objectivity, Speed, Deep Obsidian Black"
+  },
+  "design_principles": [
+    "Content over chrome: Eliminate all unnecessary borders, cards, and backgrounds. Use negative space (padding) as the primary separator.",
+    "High contrast: Pure or near-pure whites (#FAFAFA) on deep voids (#09090B) to ensure rapid legibility, inspired by high-end aviation/military HUDs.",
+    "Touch precision: Minimum touch targets of 48x48px. Hit slop values applied to icons.",
+    "No friction: Immediate interactions, binary states, no loading spinners for local storage operations.",
+    "Unobtrusive motion: Subtle scaling on press, buttery bottom-sheet slides. No bouncing or springy overshoots."
+  ],
+  "typography": {
+    "font_pairings": {
+      "headings": {
+        "family": "Work Sans",
+        "description": "Bold, clean, slightly utilitarian sans-serif. Used for headers, dates, and numbers.",
+        "weight": "800 (Black) or 700 (Bold)"
+      },
+      "body": {
+        "family": "IBM Plex Sans",
+        "description": "Legible, technical sans-serif for task titles, notes, and metadata.",
+        "weight": "400 (Regular) and 500 (Medium)"
+      }
+    },
+    "scale": {
+      "H1": "text-4xl (36px) tracking-tight leading-none",
+      "H2": "text-3xl (30px) tracking-tight leading-tight",
+      "H3": "text-xl (20px)",
+      "BodyLarge": "text-lg (18px) leading-relaxed",
+      "Body": "text-base (16px) leading-normal",
+      "Label": "text-sm (14px) tracking-[0.05em] uppercase text-zinc-400",
+      "Caption": "text-xs (12px)"
+    }
+  },
+  "color_palette": {
+    "dark_mode": {
+      "background": "#09090B",
+      "surface": "#18181B",
+      "border": "#27272A",
+      "text_primary": "#FAFAFA",
+      "text_secondary": "#A1A1AA",
+      "text_tertiary": "#52525B",
+      "accent_primary": "#FFFFFF",
+      "accent_text": "#09090B",
+      "success": "#22C55E",
+      "destructive": "#EF4444",
+      "category_colors": {
+        "home": "#60A5FA",
+        "work": "#F59E0B",
+        "health": "#34D399",
+        "hobby": "#A78BFA"
+      }
+    },
+    "light_mode": {
+      "background": "#FAFAFA",
+      "surface": "#FFFFFF",
+      "border": "#E5E5E5",
+      "text_primary": "#09090B",
+      "text_secondary": "#52525B",
+      "text_tertiary": "#A1A1AA",
+      "accent_primary": "#09090B",
+      "accent_text": "#FAFAFA",
+      "success": "#16A34A",
+      "destructive": "#DC2626",
+      "category_colors": {
+        "home": "#3B82F6",
+        "work": "#D97706",
+        "health": "#059669",
+        "hobby": "#7C3AED"
+      }
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing (Tailwind Scale adapted for Mobile). Do not cramp elements.",
+    "screen_padding": "px-6 (24px) or px-8 (32px)",
+    "section_gap": "gap-8 (32px) to gap-12 (48px)",
+    "item_gap": "gap-4 (16px)",
+    "touch_targets": "min-h-[48px] min-w-[48px]"
+  },
+  "components_and_patterns": {
+    "navigation": {
+      "bottom_tab_bar": "Solid background (#18181B in dark mode) with NO top border. Use optical alignment for icons. Active tab icon: #FAFAFA, Inactive: #52525B. No text labels.",
+      "quick_add_fab": "Do not use a floating circle. Use a dedicated central tab or a persistent bottom bar input area to avoid overlapping lists."
+    },
+    "task_list_item": {
+      "style": "Flat, cardless. separated by 1px subtle border-bottom (#27272A).",
+      "layout": "Row flex, align-center. Left: 24x24px outline circle (toggle). Middle: Task title (16px). Right: Category dot or due date.",
+      "completed_state": "Text color changes to text_tertiary (#52525B) with line-through. Circle filled with text_tertiary.",
+      "swipe_actions": "Swipe left to reveal Destructive Red (#EF4444) trash block. Swipe right to schedule."
+    },
+    "progress_header": {
+      "style": "Massive typography. '5 of 8' in text-4xl font-black. 'tasks completed' in text-sm uppercase.",
+      "visual": "A 2px high full-width progress bar (#27272A background, #FAFAFA fill)."
+    },
+    "modals_and_sheets": {
+      "add_edit_task": "Use an Expo BottomSheet (e.g., @gorhom/bottom-sheet). Snap points: 50%, 90%. Drag handle: 4px high, 32px wide pill (#52525B). No title bar, just a massive text input for the task name right at the top."
+    },
+    "buttons": {
+      "primary": "bg-white text-black (Dark mode) or bg-black text-white (Light mode). h-14 rounded-lg flex items-center justify-center font-bold text-lg."
+    },
+    "inputs": {
+      "style": "No borders. Massive text size (text-2xl) for main task input. For notes/details: text-base with text_secondary color."
+    }
+  },
+  "screens": {
+    "Home": {
+      "header": "Today's Date (e.g., 'Wed, Oct 24') in small uppercase, followed by giant Progress Header.",
+      "body": "Today's task list (Flat layout).",
+      "upcoming": "A muted section below today's tasks showing the next 5 tasks. Opacity 60%."
+    },
+    "Tasks": {
+      "header": "Sticky header with horizontally scrollable pills for categories (All, Home, Work, Health).",
+      "body": "SectionList grouped by Recurring vs One-time."
+    },
+    "Stats": {
+      "layout": "Bento-style grid (simulated with flex). Large blocks for 'Total Completed' (text-5xl) and 'Current Streak' (with a subtle fire emoji or icon). Weekly bar chart using plain Reanimated views or react-native-svg."
+    },
+    "Settings": {
+      "layout": "Simple list of rows with right-aligned toggles. Theme (Dark/Light/System), Notifications. Minimalist About section with abstract texture background header."
+    }
+  },
+  "icons_and_assets": {
+    "library": "phosphor-react-native or @expo/vector-icons (Feather). Prefer sharp, linear icons.",
+    "weight": "Regular or Bold (do not use thin/light as they disappear in dark mode).",
+    "inspiration_image": "https://images.unsplash.com/photo-1770745560263-a8fc696de90b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwZGFyayUyMGFic3RyYWN0JTIwdGV4dHVyZXxlbnwwfHx8fDE3NzQ1NzQ5Mzd8MA&ixlib=rb-4.1.0&q=85 (Use as faint texture behind Settings/Stats if needed)"
+  },
+  "motion_and_interactions": {
+    "toggles": "Immediate visual feedback. Haptic feedback (react-native-haptic-feedback) on completion toggle.",
+    "page_transitions": "Expo Router default native transitions (slide from right).",
+    "lists": "Staggered fade-up on initial load."
+  },
+  "accessibility_and_testing": {
+    "contrast": "Text contrast exceeds WCAG AA (4.5:1).",
+    "screen_readers": "All icon-only buttons MUST have accessibilityLabel.",
+    "testing_attributes": "All interactive elements MUST include a 'testID' attribute (e.g., testID='complete-task-button', testID='add-task-input', testID='nav-home-tab')."
+  },
+  "instructions_to_main_agent": [
+    "Use NativeWind v4 (Tailwind for React Native) or standard StyleSheet for all styling.",
+    "Prioritize optical alignment over raw math. If an icon looks off-center, adjust its margins manually.",
+    "Do NOT use HTML elements (div, span). Use native elements (View, Text, TouchableOpacity, Pressable).",
+    "For the bottom sheet, use '@gorhom/bottom-sheet' or a custom Modal with react-native-reanimated to maintain the minimalist feel.",
+    "Persist tasks using '@react-native-async-storage/async-storage'.",
+    "Ensure 'testID' is added to every pressable, text input, and major view for end-to-end testing.",
+    "Avoid default Expo blue everywhere. Stick to the monochromatic palette defined above.",
+    "When rendering lists, use FlatList or SectionList for performance, avoid mapping over large arrays in ScrollView."
+  ]
+}
