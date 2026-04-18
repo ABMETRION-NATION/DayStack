@@ -1,7 +1,13 @@
 import Feather from "@expo/vector-icons/Feather";
+import {
+  BottomTabBar,
+  type BottomTabBarProps,
+} from "@react-navigation/bottom-tabs";
 import { Tabs } from "expo-router";
-import { Platform } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { useAppTheme } from "../../src/context/ThemeContext";
 
 const HomeTabIcon = ({ color, size }: { color: string; size: number }) => (
   <Feather color={color} name="home" size={size} />
@@ -19,52 +25,71 @@ const SettingsTabIcon = ({ color, size }: { color: string; size: number }) => (
   <Feather color={color} name="settings" size={size} />
 );
 
-export default function TabsLayout() {
+function FloatingTabBar(props: BottomTabBarProps) {
+  const { colors } = useAppTheme();
   const insets = useSafeAreaInsets();
+
+  const bottomOffset = Math.max(insets.bottom, 16) + 14;
+
+  return (
+    <View
+      pointerEvents="box-none"
+      style={[
+        styles.container,
+        {
+          left: 16,
+          right: 16,
+          bottom: bottomOffset,
+        },
+      ]}
+    >
+      <BottomTabBar
+        {...props}
+        style={[
+          styles.tabBar,
+          {
+            backgroundColor: colors.surface,
+          },
+        ]}
+      />
+    </View>
+  );
+}
+
+export default function TabsLayout() {
+  const { colors } = useAppTheme();
+  const insets = useSafeAreaInsets();
+
+  const reservedSpace = 92 + Math.max(insets.bottom, 16) + 20;
 
   return (
     <Tabs
+      tabBar={(props) => <FloatingTabBar {...props} />}
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
         sceneStyle: {
-          backgroundColor: "#000000",
-          paddingBottom: 180,
+          backgroundColor: colors.background,
+          paddingBottom: reservedSpace,
         },
-        tabBarActiveTintColor: "#ffffff",
-        tabBarInactiveTintColor: "#ffffff",
+        tabBarActiveTintColor: colors.textPrimary,
+        tabBarInactiveTintColor: colors.textTertiary,
         tabBarLabelStyle: {
-          display: "flex",
-          fontSize: 12,
-          fontWeight: "700",
-          marginBottom: 4,
-        },
-        tabBarStyle: {
-          position: "absolute",
-          left: 12,
-          right: 12,
-          bottom: Math.max(insets.bottom, 16) + 40,
-          height: 96,
-          paddingTop: 10,
-          paddingBottom: 10,
-          backgroundColor: "#ff00aa",
-          borderTopWidth: 4,
-          borderTopColor: "#00ffff",
-          borderRadius: 28,
-          elevation: 20,
-          shadowOpacity: 0.3,
-          shadowRadius: 12,
-          shadowOffset: { width: 0, height: 6 },
+          display: "none",
         },
         tabBarItemStyle: {
           paddingVertical: 6,
+        },
+        tabBarIconStyle: {
+          marginTop: 0,
+          marginBottom: 0,
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "LIVE HOME",
+          title: "Home",
           tabBarAccessibilityLabel: "Home",
           tabBarButtonTestID: "nav-home-tab",
           tabBarIcon: HomeTabIcon,
@@ -73,7 +98,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="tasks"
         options={{
-          title: "LIVE TASKS",
+          title: "Tasks",
           tabBarAccessibilityLabel: "Tasks",
           tabBarButtonTestID: "nav-tasks-tab",
           tabBarIcon: TasksTabIcon,
@@ -82,7 +107,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="stats"
         options={{
-          title: "LIVE STATS",
+          title: "Stats",
           tabBarAccessibilityLabel: "Stats",
           tabBarButtonTestID: "nav-stats-tab",
           tabBarIcon: StatsTabIcon,
@@ -91,7 +116,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: "LIVE SETTINGS",
+          title: "Settings",
           tabBarAccessibilityLabel: "Settings",
           tabBarButtonTestID: "nav-settings-tab",
           tabBarIcon: SettingsTabIcon,
@@ -100,3 +125,18 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+  },
+  tabBar: {
+    height: 72,
+    borderRadius: 24,
+    borderTopWidth: 0,
+    elevation: 16,
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+  },
+});
