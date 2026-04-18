@@ -26,10 +26,10 @@ export default function TabsLayout() {
   const insets = useSafeAreaInsets();
 
   const isAndroid = Platform.OS === "android";
-
-  // Hard lift above Android system buttons.
-  const floatingBottom = isAndroid ? Math.max(insets.bottom, 16) + 18 : Math.max(insets.bottom, 10);
-  const tabBarHeight = 68;
+  const horizontalInset = 16;
+  const floatingBottom = isAndroid ? Math.max(insets.bottom, 16) + 28 : Math.max(insets.bottom, 10);
+  const tabBarHeight = 72;
+  const reservedScreenBottom = tabBarHeight + floatingBottom + 16;
 
   return (
     <Tabs
@@ -37,27 +37,30 @@ export default function TabsLayout() {
         headerShown: false,
         sceneStyle: {
           backgroundColor: colors.background,
-          paddingBottom: isAndroid ? tabBarHeight + floatingBottom + 12 : 0,
+          paddingBottom: reservedScreenBottom,
         },
         tabBarActiveTintColor: colors.textPrimary,
         tabBarInactiveTintColor: colors.textTertiary,
-        tabBarLabelStyle: { display: "none" },
+        tabBarLabelStyle: {
+          display: "none",
+        },
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           position: "absolute",
-          left: 16,
-          right: 16,
+          left: horizontalInset,
+          right: horizontalInset,
           bottom: floatingBottom,
           height: tabBarHeight,
           paddingTop: 8,
           paddingBottom: 8,
+          paddingHorizontal: 8,
           backgroundColor: colors.surface,
           borderTopWidth: 0,
           borderRadius: 24,
-          elevation: 12,
-          shadowOpacity: 0.16,
-          shadowRadius: 12,
-          shadowOffset: { width: 0, height: 4 },
+          elevation: 16,
+          shadowOpacity: 0.18,
+          shadowRadius: 14,
+          shadowOffset: { width: 0, height: 6 },
         },
         tabBarItemStyle: {
           paddingVertical: 2,
