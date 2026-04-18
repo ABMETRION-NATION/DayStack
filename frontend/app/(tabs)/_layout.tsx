@@ -1,5 +1,6 @@
 import Feather from "@expo/vector-icons/Feather";
 import { Tabs } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAppTheme } from "../../src/context/ThemeContext";
 
@@ -21,6 +22,7 @@ const SettingsTabIcon = ({ color, size }: { color: string; size: number }) => (
 
 export default function TabsLayout() {
   const { colors } = useAppTheme();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -33,9 +35,9 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopWidth: 0,
-          height: 70,
-          paddingBottom: 12,
-          paddingTop: 10,
+          height: 58 + insets.bottom,
+          paddingBottom: Math.max(insets.bottom, 8),
+          paddingTop: 8,
         },
       }}
     >
