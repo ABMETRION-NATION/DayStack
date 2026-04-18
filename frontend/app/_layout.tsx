@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { TasksProvider } from "../src/context/TasksContext";
 import { ThemeProvider, useAppTheme } from "../src/context/ThemeContext";
@@ -15,27 +15,22 @@ function RootNavigator() {
       style={[styles.container, { backgroundColor: colors.background }]}
     >
       <SafeAreaProvider>
-        <SafeAreaView
-          style={[styles.container, { backgroundColor: colors.background }]}
-          edges={["top", "left", "right", "bottom"]}
+        <StatusBar style={isDark ? "light" : "dark"} />
+        <Stack
+          screenOptions={{
+            contentStyle: { backgroundColor: colors.background },
+            headerShown: false,
+          }}
         >
-          <StatusBar style={isDark ? "light" : "dark"} />
-          <Stack
-            screenOptions={{
-              contentStyle: { backgroundColor: colors.background },
-              headerShown: false,
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen
+            name="task-editor"
+            options={{
+              animation: "slide_from_bottom",
+              presentation: "modal",
             }}
-          >
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen
-              name="task-editor"
-              options={{
-                animation: "slide_from_bottom",
-                presentation: "modal",
-              }}
-            />
-          </Stack>
-        </SafeAreaView>
+          />
+        </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
