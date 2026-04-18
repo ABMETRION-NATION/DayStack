@@ -1,6 +1,5 @@
 import Feather from "@expo/vector-icons/Feather";
 import { Tabs } from "expo-router";
-import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAppTheme } from "../../src/context/ThemeContext";
@@ -25,9 +24,6 @@ export default function TabsLayout() {
   const { colors } = useAppTheme();
   const insets = useSafeAreaInsets();
 
-  const androidBottomPadding = Platform.OS === "android" ? Math.max(insets.bottom, 28) : Math.max(insets.bottom, 12);
-  const tabBarHeight = 62 + androidBottomPadding;
-
   return (
     <Tabs
       screenOptions={{
@@ -40,12 +36,9 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopWidth: 0,
-          height: tabBarHeight,
+          height: 64 + insets.bottom,
+          paddingBottom: Math.max(insets.bottom, 12),
           paddingTop: 10,
-          paddingBottom: androidBottomPadding,
-        },
-        tabBarItemStyle: {
-          paddingVertical: 0,
         },
       }}
     >
