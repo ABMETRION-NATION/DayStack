@@ -1,6 +1,5 @@
 import Feather from "@expo/vector-icons/Feather";
 import { Tabs } from "expo-router";
-import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAppTheme } from "../../src/context/ThemeContext";
@@ -25,49 +24,21 @@ export default function TabsLayout() {
   const { colors } = useAppTheme();
   const insets = useSafeAreaInsets();
 
-  const isAndroid = Platform.OS === "android";
-  const horizontalInset = 16;
-  const floatingBottom = isAndroid ? Math.max(insets.bottom, 16) + 28 : Math.max(insets.bottom, 10);
-  const tabBarHeight = 72;
-  const reservedScreenBottom = tabBarHeight + floatingBottom + 16;
-
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        sceneStyle: {
-          backgroundColor: colors.background,
-          paddingBottom: reservedScreenBottom,
-        },
+        sceneStyle: { backgroundColor: colors.background },
         tabBarActiveTintColor: colors.textPrimary,
         tabBarInactiveTintColor: colors.textTertiary,
-        tabBarLabelStyle: {
-          display: "none",
-        },
+        tabBarLabelStyle: { display: "none" },
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          position: "absolute",
-          left: horizontalInset,
-          right: horizontalInset,
-          bottom: floatingBottom,
-          height: tabBarHeight,
-          paddingTop: 8,
-          paddingBottom: 8,
-          paddingHorizontal: 8,
           backgroundColor: colors.surface,
           borderTopWidth: 0,
-          borderRadius: 24,
-          elevation: 16,
-          shadowOpacity: 0.18,
-          shadowRadius: 14,
-          shadowOffset: { width: 0, height: 6 },
-        },
-        tabBarItemStyle: {
-          paddingVertical: 2,
-        },
-        tabBarIconStyle: {
-          marginTop: 0,
-          marginBottom: 0,
+          height: 64 + insets.bottom,
+          paddingBottom: Math.max(insets.bottom, 12),
+          paddingTop: 10,
         },
       }}
     >
