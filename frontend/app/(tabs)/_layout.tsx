@@ -25,8 +25,14 @@ export default function TabsLayout() {
   const { colors } = useAppTheme();
   const insets = useSafeAreaInsets();
 
-  const androidExtraBottom = Platform.OS === "android" ? 20 : 0;
-  const bottomSpace = Math.max(insets.bottom, 12) + androidExtraBottom;
+  const isAndroid = Platform.OS === "android";
+  const bottomInset = Math.max(insets.bottom, 12);
+
+  // Extra reserved space for Android system navigation area
+  const androidBottomReserve = isAndroid ? 28 : 0;
+
+  // Extra lift to push the interactive tab buttons above the system buttons
+  const androidTabLift = isAndroid ? 14 : 0;
 
   return (
     <Tabs
@@ -40,16 +46,18 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopWidth: 0,
-          height: 56 + bottomSpace,
+          height: 60 + bottomInset + androidBottomReserve,
           paddingTop: 8,
-          paddingBottom: bottomSpace,
+          paddingBottom: bottomInset + androidBottomReserve,
         },
         tabBarItemStyle: {
-          paddingTop: 6,
-          paddingBottom: 6,
+          paddingTop: 4,
+          paddingBottom: 4,
+          marginBottom: androidTabLift,
         },
         tabBarIconStyle: {
-          marginTop: 2,
+          marginTop: 0,
+          marginBottom: 0,
         },
       }}
     >
