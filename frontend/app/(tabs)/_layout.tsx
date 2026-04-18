@@ -49,6 +49,7 @@ function FloatingTabBar(props: BottomTabBarProps) {
           styles.tabBar,
           {
             backgroundColor: colors.surface,
+            borderTopColor: "transparent",
           },
         ]}
       />
@@ -132,11 +133,12 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     height: 72,
-    borderRadius: 24,
     borderTopWidth: 0,
-    elevation: 16,
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
+    borderRadius: 24,
+    overflow: "hidden",
+    elevation: 14,
+    shadowOpacity: 0.12,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
 });
