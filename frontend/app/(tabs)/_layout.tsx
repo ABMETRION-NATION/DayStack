@@ -26,34 +26,41 @@ export default function TabsLayout() {
   const insets = useSafeAreaInsets();
 
   const isAndroid = Platform.OS === "android";
-  const bottomInset = Math.max(insets.bottom, 12);
 
-  // Extra reserved space for Android system navigation area
-  const androidBottomReserve = isAndroid ? 28 : 0;
-
-  // Extra lift to push the interactive tab buttons above the system buttons
-  const androidTabLift = isAndroid ? 14 : 0;
+  // Hard lift above Android system buttons.
+  const floatingBottom = isAndroid ? Math.max(insets.bottom, 16) + 18 : Math.max(insets.bottom, 10);
+  const tabBarHeight = 68;
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        sceneStyle: { backgroundColor: colors.background },
+        sceneStyle: {
+          backgroundColor: colors.background,
+          paddingBottom: isAndroid ? tabBarHeight + floatingBottom + 12 : 0,
+        },
         tabBarActiveTintColor: colors.textPrimary,
         tabBarInactiveTintColor: colors.textTertiary,
         tabBarLabelStyle: { display: "none" },
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
+          position: "absolute",
+          left: 16,
+          right: 16,
+          bottom: floatingBottom,
+          height: tabBarHeight,
+          paddingTop: 8,
+          paddingBottom: 8,
           backgroundColor: colors.surface,
           borderTopWidth: 0,
-          height: 60 + bottomInset + androidBottomReserve,
-          paddingTop: 8,
-          paddingBottom: bottomInset + androidBottomReserve,
+          borderRadius: 24,
+          elevation: 12,
+          shadowOpacity: 0.16,
+          shadowRadius: 12,
+          shadowOffset: { width: 0, height: 4 },
         },
         tabBarItemStyle: {
-          paddingTop: 4,
-          paddingBottom: 4,
-          marginBottom: androidTabLift,
+          paddingVertical: 2,
         },
         tabBarIconStyle: {
           marginTop: 0,
