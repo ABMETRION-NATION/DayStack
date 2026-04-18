@@ -1,48 +1,82 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Feather from "@expo/vector-icons/Feather";
+import { Tabs } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { TasksProvider } from "../src/context/TasksContext";
-import { ThemeProvider, useAppTheme } from "../src/context/ThemeContext";
+import { useAppTheme } from "../../src/context/ThemeContext";
 
-function RootNavigator() {
-  const { colors, isDark } = useAppTheme();
+const HomeTabIcon = ({ color, size }: { color: string; size: number }) => (
+  <Feather color={color} name="home" size={size} />
+);
+
+const TasksTabIcon = ({ color, size }: { color: string; size: number }) => (
+  <Feather color={color} name="check-square" size={size} />
+);
+
+const StatsTabIcon = ({ color, size }: { color: string; size: number }) => (
+  <Feather color={color} name="bar-chart-2" size={size} />
+);
+
+const SettingsTabIcon = ({ color, size }: { color: string; size: number }) => (
+  <Feather color={color} name="settings" size={size} />
+);
+
+export default function TabsLayout() {
+  const { colors } = useAppTheme();
+  const insets = useSafeAreaInsets();
 
   return (
-    <GestureHandlerRootView style={[styles.container, { backgroundColor: colors.background }]}>
-      <StatusBar style={isDark ? "light" : "dark"} />
-      <Stack
-        screenOptions={{
-          contentStyle: { backgroundColor: colors.background },
-          headerShown: false,
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        sceneStyle: { backgroundColor: colors.background },
+        tabBarActiveTintColor: colors.textPrimary,
+        tabBarInactiveTintColor: colors.textTertiary,
+        tabBarLabelStyle: { display: "none" },
+        tabBarStyle: {
+          backgroundColor: colors.surface,
+          borderTopWidth: 0,
+          height: 64 + insets.bottom,
+          paddingBottom: Math.max(insets.bottom, 12),
+          paddingTop: 10,
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          tabBarAccessibilityLabel: "Home",
+          tabBarButtonTestID: "nav-home-tab",
+          tabBarIcon: HomeTabIcon,
+          title: "Home",
         }}
-      >
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen
-          name="task-editor"
-          options={{
-            animation: "slide_from_bottom",
-            presentation: "modal",
-          }}
-        />
-      </Stack>
-    </GestureHandlerRootView>
+      />
+      <Tabs.Screen
+        name="tasks"
+        options={{
+          tabBarAccessibilityLabel: "Tasks",
+          tabBarButtonTestID: "nav-tasks-tab",
+          tabBarIcon: TasksTabIcon,
+          title: "Tasks",
+        }}
+      />
+      <Tabs.Screen
+        name="stats"
+        options={{
+          tabBarAccessibilityLabel: "Stats",
+          tabBarButtonTestID: "nav-stats-tab",
+          tabBarIcon: StatsTabIcon,
+          title: "Stats",
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          tabBarAccessibilityLabel: "Settings",
+          tabBarButtonTestID: "nav-settings-tab",
+          tabBarIcon: SettingsTabIcon,
+          title: "Settings",
+        }}
+      />
+    </Tabs>
   );
 }
-
-export default function RootLayout() {
-  return (
-    <ThemeProvider>
-      <TasksProvider>
-        <RootNavigator />
-      </TasksProvider>
-    </ThemeProvider>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
