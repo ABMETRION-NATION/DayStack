@@ -25,9 +25,8 @@ export default function TabsLayout() {
   const { colors } = useAppTheme();
   const insets = useSafeAreaInsets();
 
-  const safeBottomInset = Math.max(insets.bottom, 12);
-  const tabBarBaseHeight = 60;
-  const tabBarHeight = tabBarBaseHeight + safeBottomInset;
+  const androidBottomPadding = Platform.OS === "android" ? Math.max(insets.bottom, 28) : Math.max(insets.bottom, 12);
+  const tabBarHeight = 62 + androidBottomPadding;
 
   return (
     <Tabs
@@ -42,21 +41,11 @@ export default function TabsLayout() {
           backgroundColor: colors.surface,
           borderTopWidth: 0,
           height: tabBarHeight,
-          paddingBottom: safeBottomInset,
           paddingTop: 10,
-          paddingHorizontal: 4,
-          elevation: 8,
-          shadowOpacity: 0.08,
-          shadowRadius: 8,
-          shadowOffset: { width: 0, height: -2 },
-          ...(Platform.OS === "android"
-            ? {
-                paddingBottom: safeBottomInset + 4,
-              }
-            : {}),
+          paddingBottom: androidBottomPadding,
         },
         tabBarItemStyle: {
-          paddingVertical: 2,
+          paddingVertical: 0,
         },
       }}
     >
