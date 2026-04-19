@@ -50,5 +50,4 @@ We may update this Privacy Policy as features evolve. Updates will be reflected 
 9. Contact
 
 For questions, contact:
-nohooksstudio@gmail.com
- (or your actual support email)
+nohooksstudio@abmetrionuniverse.com
