@@ -1,6 +1,6 @@
 # DayStack: Public Project Working Context
 
-**Public-safe draft orientation, 2026-11-18.** This is **not** an internal organization/governance charter, proof of a company relationship, a legal notice, or an authorized release. The repository's original source and approved owner specifications remain controlling. No private directives, internal source paths, confidential data, keys, business ownership diagrams, legal research or model/agent details are reproduced here.
+**Public-safe project working reference, updated 2026-11-20; actual adoption depends on current source/main.** This is **not** an internal organization/governance charter, proof of a company relationship, a legal notice, or an authorized release. The repository's original source and approved owner specifications remain controlling. No private directives, internal source paths, confidential data, keys, business ownership diagrams, legal research or model/agent details are reproduced here.
 
 ## Project assistant operating method — public-safe, source-first (2026-11-20 review)
 
@@ -36,4 +36,4 @@ Project purpose and operational maturity need confirmation from actual source an
 
 Some broader organizational instructions and technical/legal records may exist in separately permissioned private sources. A public repository cannot carry or claim to replace them. Authorized maintainers must consult their applicable private policies in the correct environment. Do not infer internal governance, model training, ownership, revenue or permissions from this public note.
 
-**Acceptance:** This file is a review candidate only. The cross-project maintainer who originated this PR must complete its review and integration under authorization; the owning product maintainer retains final product/source/rights authority. The local README link is staged in this draft branch. Source/runtime/UI unchanged; no release or automated synchronization.
+**Acceptance:** This is a documentation-only working reference; document presence is not proof that an assistant has read it or that the product has been released. The cross-project maintainer who originated this PR must complete its review and integration under authorization; the owning product maintainer retains final product/source/rights authority. The local README link is staged in this draft branch. Source/runtime/UI unchanged; no release or automated synchronization.
